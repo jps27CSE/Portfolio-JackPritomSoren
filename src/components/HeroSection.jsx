@@ -19,10 +19,10 @@ const HeroSection = () => {
                 1000,
                 "Software Developer",
                 1000,
-                "MERN Developer",
+                "MERN Stack Developer",
                 1000,
-                // "UI/UX Designer",
-                // 1000,
+                "Programmer",
+                1000,
               ]}
               wrapper="span"
               speed={50}
