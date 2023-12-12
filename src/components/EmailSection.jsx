@@ -26,7 +26,7 @@ const EmailSection = () => {
       </div>
       <div>
         <form
-          action={`https://formspree.io/f/${process.env.EMAIL_KEY}`}
+          action="https://formspree.io/f/xnqkewaz"
           method="POST"
         >
           <div className="mb-6">
