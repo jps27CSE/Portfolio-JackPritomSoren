@@ -10,12 +10,14 @@ const TAB_DATA = [
     id: "skills",
     content: (
       <ul className="list-disc pl-2">
-        <li>React.js</li>
-        <li>Express</li>
-        <li>MongoDB</li>
-        <li>Firebase</li>
-        <li>Tailwind CSS</li>
-        <li>Node JS</li>
+        <li> <span className="font-bold">Expertise:</span> JavaScript, React JS, HTML, CSS, Tailwind CSS</li>
+        <li> <span className="font-bold">Comfortable:</span> Node JS, Express JS, MongoDB</li>
+        <li> <span className="font-bold">Familiar::</span> Next JS, Typescript, MySQL, Stripe, Strapi</li>
+        <li> <span className="font-bold">Version Control, DevOps & OS:</span> Git & GitHub, Windows, Linux</li>
+        <li> <span className="font-bold">Editor/IDE:</span> VS Code, Code Blocks, Visual Studio, IntelliJ IDEA</li>
+        <li> <span className="font-bold">Tools and Software:</span> Postman, Chrome Dev Tool, MS Excel, MS Word, MS PowerPoint</li>
+        <li> <span className="font-bold">Problem Solving:</span> LeetCode (jps27CSE), Codewars (jps27CSE)</li>
+        <li > <span className="font-bold">Interpersonal Skills:</span> Teamwork, Leadership, Communication</li>
       </ul>
     ),
   },
@@ -53,7 +55,7 @@ const AboutSection = () => {
   };
 
   return (
-    <section className="text-white">
+    <section id="about" className="text-white">
       <div className="gap-8 items-center py-8 px-4 xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-16">
         <Image src="/images/about-image.jpg" width={500} height={500} alt="jack pritom soren is coding" />
         <div className="mt-4 md:mt-0 text-left flex flex-col h-full">
