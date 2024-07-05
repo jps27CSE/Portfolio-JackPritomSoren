@@ -52,6 +52,7 @@ const TAB_DATA = [
     <ul className="list-disc pl-2">
 
             <ul className="list-disc pl-4">
+                {/* eslint-disable-next-line react/no-unescaped-entities */}
                 <li>Developed a map-based application using AngularJS to visualize doctors' prescription
                             patterns across different locations.
                         </li>
