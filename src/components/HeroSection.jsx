@@ -7,7 +7,7 @@ import Link from "next/link";
 
 /* eslint-disable react/no-unescaped-entities */
 const HeroSection = () => {
-  const resumeLink = 'https://drive.google.com/u/0/uc?id=1TbEKVqqp2N0qpaec5Fbj37BWV8ZtyIle&export=download';
+  const resumeLink = 'https://drive.usercontent.google.com/u/0/uc?id=1bfN0q31juRxuzT7hsPZDsbgtRO-DWlUF&export=download';
 
   const handleDownload = () => {
     window.open(resumeLink, '_blank');
@@ -30,7 +30,7 @@ const HeroSection = () => {
               sequence={[
                 "Jack Pritom Soren",
                 1000,
-                "Software Developer",
+                "Software Engineer",
                 1000,
                 "MERN Stack Developer",
                 1000,
@@ -43,7 +43,7 @@ const HeroSection = () => {
             />
           </h1>
           <p className="text-[#ADB7BE] mb-6 textl-lg lg:text-xl">
-          Passionate MERN Stack Developer dedicated to clean code and innovation. Eager to contribute to dynamic teams, advancing my impactful development career.
+              Passionate Software Engineer (Frontend) skilled in MERN Stack, dedicated to crafting clean, efficient code and driving innovation. Eager to collaborate with dynamic teams and advance in impactful development projects.
           </p>
           <div>
           <Link href="/#contact" passHref>
@@ -53,7 +53,7 @@ const HeroSection = () => {
     </Link>
             <button  onClick={handleDownload} className="m-4 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 px-1 py-1  text-white rounded-full">
               <span className="block bg-[#121212] hover:bg-slate-800 rounded-full px-5 py-2">
-                Download Resume
+                Download CV
               </span>
             </button>
           </div>
