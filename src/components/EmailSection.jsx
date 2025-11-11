@@ -2,11 +2,18 @@
 import React from "react";
 import GithubIcon from "../../public/github-icon.svg";
 import LinkedinIcon from "../../public/linkedin-icon.svg";
+import ThreadsIcon from "../../public/threads-app-icon.svg";
+import YoutubeIcon from "../../public/youtube.svg";
+import MediumIcon from "../../public/medium.svg";
+import DevtoIcon from "../../public/dev-to.svg";
 import Image from "next/image";
 
 const EmailSection = () => {
   return (
-    <section id="contact" className="grid md:grid-cols-2 my-12 md:my-16 py-24 gap-4 relative">
+    <section
+      id="contact"
+      className="grid md:grid-cols-2 my-12 md:my-16 py-24 gap-4 relative"
+    >
       <div className="absolute w-80 h-80 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900 to-transparent rounded-full blur-lg top-full -left-4 transform -translate-x-1/2 -translate-y-1/2"></div>
       <div className="z-10">
         <h5 className="text-xl font-bold text-white my-2">Let's Connect</h5>
@@ -15,20 +22,82 @@ const EmailSection = () => {
           Whether you have a question or just want to say hi, I'll try my best
           to get back to you!
         </p>
-        <div className="socials flex flex-row gap-2">
-          <a href="https://github.com/jps27cse">
-            <Image src={GithubIcon} alt="github icon" />
+        <div className="flex flex-row gap-4 mt-4">
+          <a
+            href="https://github.com/jps27cse"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src={GithubIcon}
+              alt="GitHub"
+              className="w-8 h-8 hover:scale-110 transition-transform"
+            />
           </a>
-          <a href="https://www.linkedin.com/in/jps27cse/">
-            <Image src={LinkedinIcon} alt="linkedin icon" />
+
+          <a
+            href="https://www.linkedin.com/in/jps27cse/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src={LinkedinIcon}
+              alt="LinkedIn"
+              className="w-8 h-8 hover:scale-110 transition-transform"
+            />
+          </a>
+
+          <a
+            href="https://www.threads.net/@jps.27"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src={ThreadsIcon}
+              alt="Threads"
+              className="w-8 h-8 hover:scale-110 transition-transform"
+            />
+          </a>
+
+          <a
+            href="https://www.youtube.com/@jps27"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src={YoutubeIcon}
+              alt="YouTube"
+              className="w-8 h-8 hover:scale-110 transition-transform"
+            />
+          </a>
+
+          <a
+            href="https://medium.com/@jackpritomsoren"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src={MediumIcon}
+              alt="Medium"
+              className="w-8 h-8 hover:scale-110 transition-transform"
+            />
+          </a>
+
+          <a
+            href="https://dev.to/jps27cse"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src={DevtoIcon}
+              alt="Dev.to"
+              className="w-8 h-8 hover:scale-110 transition-transform"
+            />
           </a>
         </div>
       </div>
       <div>
-        <form
-          action="https://formspree.io/f/xnqkewaz"
-          method="POST"
-        >
+        <form action="https://formspree.io/f/xnqkewaz" method="POST">
           <div className="mb-6">
             <label
               htmlFor="email"
