@@ -134,7 +134,7 @@ const AboutSection = () => {
 
   return (
     <section id="about" className="text-white">
-      <div className="gap-8 items-center py-8 px-4 xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-16">
+      <div className="flex flex-col md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 lg:px-16">
         <Image
           src="/images/about-image.jpg"
           width={500}

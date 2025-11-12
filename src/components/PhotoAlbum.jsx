@@ -82,7 +82,7 @@ const OfficeMemories = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.03 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="relative w-full h-[70vh] md:h-[80vh]"
+            className="relative w-full h-[45vh] sm:h-[55vh] md:h-[70vh] lg:h-[80vh]"
           >
             <Image
               src={images[currentIndex].src}
