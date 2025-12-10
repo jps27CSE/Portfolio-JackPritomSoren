@@ -118,6 +118,28 @@ const projectsData = [
     gitUrl: "https://github.com/jps27CSE/Ecommerce_React_Strapi_Stripe",
     previewUrl: "",
   },
+  {
+    id: 12,
+    title: "LuminaShade",
+    description:
+      "Transform your editor with LuminaShade — sleek dark themes for developers who prioritize style, readability, and focus. Enjoy smooth coding with high contrast.",
+    image: "/images/projects/project12.png",
+    tag: ["All", "VS Code Extension"],
+    gitUrl:
+      "https://marketplace.visualstudio.com/items?itemName=JackPritomSoren.luminashade",
+    previewUrl: "https://youtu.be/wr0DKzqsttc?si=J6AGBKLJ22fdFVFE",
+  },
+  {
+    id: 13,
+    title: "MarkTap",
+    description:
+      "MarkTap is a fast, lightweight bookmark manager that lets you instantly save, organize, and search your links, keeping everything neatly accessible.",
+    image: "/images/projects/project13.png",
+    tag: ["All", "Browser Extension"],
+    gitUrl:
+      "https://microsoftedge.microsoft.com/addons/detail/marktap/ecadpdabhodocncmpgbogmllgilaeonf",
+    previewUrl: "https://youtu.be/tYlfEcNih7c?si=7bkWuxyup66FppDO",
+  },
 ];
 const ProjectsSection = () => {
   const [tag, setTag] = useState("All");
@@ -157,6 +179,16 @@ const ProjectsSection = () => {
           name="NPM Package"
           onClick={handleTagChange}
           isSelected={tag === "NPM Package"}
+        />
+        <ProjectTag
+          name="VS Code Extension"
+          onClick={handleTagChange}
+          isSelected={tag === "VS Code Extension"}
+        />
+        <ProjectTag
+          name="Browser Extension"
+          onClick={handleTagChange}
+          isSelected={tag === "Browser Extension"}
         />
       </div>
       <div className="grid md:grid-cols-3 gap-8 md:gap-12">
