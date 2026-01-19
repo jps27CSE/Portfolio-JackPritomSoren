@@ -61,76 +61,29 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Jack Pritom Soren",
-    "alternateName": "jps27cse",
-    "jobTitle": "Full Stack Software Engineer",
-    "description": "Passionate Full-Stack Engineer specializing in React, Next.js, MERN Stack, Spring Boot, and Supabase with expertise in building scalable web applications.",
-    "url": "https://jackpritomsoren.vercel.app",
-    "image": "https://jackpritomsoren.vercel.app/images/pp.png",
-    "sameAs": [
-      "https://github.com/jps27cse",
-      "https://www.linkedin.com/in/jps27cse/",
-      "https://www.youtube.com/@jps27",
-      "https://medium.com/@jackpritomsoren",
-      "https://dev.to/jps27cse",
-      "https://www.threads.net/@jps.27"
-    ],
-    "knowsAbout": [
-      "JavaScript",
-      "React.js",
-      "Next.js",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "Spring Boot",
-      "Supabase",
-      "TypeScript",
-      "Angular",
-      "Docker",
-      "Prisma",
-      "Git",
-      "Full Stack Development",
-      "Web Development",
-      "Software Engineering"
-    ],
-    "hasOccupation": {
-      "@type": "Occupation",
-      "name": "Software Engineer",
-      "occupationLocation": {
-        "@type": "Country",
-        "name": "Bangladesh"
-      }
-    },
-    "alumniOf": {
-      "@type": "EducationalOrganization",
-      "name": "Bangladesh University of Business and Technology",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "Bangladesh",
-        "addressLocality": "Dhaka"
-      }
-    },
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Square Health Ltd.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "Bangladesh",
-        "addressLocality": "Dhaka"
-      }
-    }
-  };
-
   return (
     <html lang="en">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Jack Pritom Soren",
+              "jobTitle": "Full Stack Software Engineer",
+              "description": "Passionate Full-Stack Engineer specializing in React, Next.js, MERN Stack, Spring Boot, and Supabase.",
+              "url": "https://jackpritomsoren.vercel.app",
+              "sameAs": [
+                "https://github.com/jps27cse",
+                "https://www.linkedin.com/in/jps27cse/",
+                "https://www.youtube.com/@jps27",
+                "https://medium.com/@jackpritomsoren"
+              ],
+              "knowsAbout": [
+                "JavaScript", "React.js", "Next.js", "Node.js", "MongoDB", "Spring Boot", "Supabase"
+              ]
+            }),
           }}
         />
       </head>

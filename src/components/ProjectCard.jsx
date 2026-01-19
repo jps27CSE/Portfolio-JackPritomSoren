@@ -14,7 +14,7 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl }) => {
       <div className="relative h-52 md:h-72 overflow-hidden">
         <Image
           src={imgUrl}
-          alt={`${title} - Project showcase by Jack Pritom Soren, demonstrating ${description.substring(0, 50)}...`}
+          alt={`${title} - Project showcase by Jack Pritom Soren, Full Stack Software Engineer`}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
