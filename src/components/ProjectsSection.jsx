@@ -160,57 +160,73 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" ref={ref}>
-      <h2 className="text-center text-4xl font-bold text-white mt-4 mb-8 md:mb-12">
-        My Projects
-      </h2>
-      <div className="flex flex-row justify-center items-center gap-2 text-white my-6">
-        <ProjectTag
-          name="All"
-          onClick={handleTagChange}
-          isSelected={tag === "All"}
-        />
-        <ProjectTag
-          name="Web"
-          onClick={handleTagChange}
-          isSelected={tag === "Web"}
-        />
-        <ProjectTag
-          name="NPM Package"
-          onClick={handleTagChange}
-          isSelected={tag === "NPM Package"}
-        />
-        <ProjectTag
-          name="VS Code Extension"
-          onClick={handleTagChange}
-          isSelected={tag === "VS Code Extension"}
-        />
-        <ProjectTag
-          name="Browser Extension"
-          onClick={handleTagChange}
-          isSelected={tag === "Browser Extension"}
-        />
-      </div>
-      <div className="grid md:grid-cols-3 gap-8 md:gap-12">
-        {filteredProjects.map((project, index) => (
-          <motion.li
-            variants={cardVariants}
-            initial="initial"
-            key={index}
-            animate={isInView ? "animate" : "initial"}
-            transition={{ duration: 0.3, delay: index * 0.4 }}
-            style={{ listStyleType: "none" }}
-          >
-            <ProjectCard
+    <section id="projects" ref={ref} className="py-20 px-4">
+      <div className="container mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center text-5xl font-bold text-white mb-16 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+        >
+          My Projects
+        </motion.h2>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="flex flex-row justify-center items-center gap-3 text-white mb-12 flex-wrap"
+        >
+          <ProjectTag
+            name="All"
+            onClick={handleTagChange}
+            isSelected={tag === "All"}
+          />
+          <ProjectTag
+            name="Web"
+            onClick={handleTagChange}
+            isSelected={tag === "Web"}
+          />
+          <ProjectTag
+            name="NPM Package"
+            onClick={handleTagChange}
+            isSelected={tag === "NPM Package"}
+          />
+          <ProjectTag
+            name="VS Code Extension"
+            onClick={handleTagChange}
+            isSelected={tag === "VS Code Extension"}
+          />
+          <ProjectTag
+            name="Browser Extension"
+            onClick={handleTagChange}
+            isSelected={tag === "Browser Extension"}
+          />
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProjects.map((project, index) => (
+            <motion.div
               key={project.id}
-              title={project.title}
-              description={project.description}
-              imgUrl={project.image}
-              gitUrl={project.gitUrl}
-              previewUrl={project.previewUrl}
-            />
-          </motion.li>
-        ))}
+              variants={cardVariants}
+              initial="initial"
+              animate={isInView ? "animate" : "initial"}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              whileHover={{ y: -10 }}
+              className="h-full"
+            >
+              <ProjectCard
+                title={project.title}
+                description={project.description}
+                imgUrl={project.image}
+                gitUrl={project.gitUrl}
+                previewUrl={project.previewUrl}
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

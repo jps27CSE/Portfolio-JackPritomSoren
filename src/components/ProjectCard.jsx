@@ -1,40 +1,79 @@
+"use client";
 import Image from "next/image";
 import { CodeBracketIcon, EyeIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const ProjectCard = ({ imgUrl, title, description, gitUrl, previewUrl }) => {
   return (
-    <div>
-      <div
-        className="group rounded-t-xl h-52 md:h-72 bg-center relative overflow-hidden"
-        src={imgUrl}
-        alt={title}
-        width={300}
-        height={200}
-        style={{ background: `url(${imgUrl})`, backgroundSize: "contain" }}
-      >
-        <div className="overlay absolute top-0 left-0 w-full h-full bg-[#181818] bg-opacity-0 hidden group-hover:flex group-hover:bg-opacity-80 transition-all duration-500 items-center justify-center">
-          <Link
-            href={previewUrl}
-            className="h-14 w-14 border-2 relative rounded-full border-[#ADB7BE] hover:border-white mr-4 group/link"
-          >
-            <EyeIcon className="h-10 w-10 text-[#ADB7BE] group-hover/link:text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-          </Link>
+    <motion.div
+      className="glass rounded-2xl overflow-hidden backdrop-blur-xl h-full flex flex-col group cursor-pointer"
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="relative h-52 md:h-72 overflow-hidden">
+        <Image
+          src={imgUrl}
+          alt={`${title} - Project showcase by Jack Pritom Soren, demonstrating ${description.substring(0, 50)}...`}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <div className="flex gap-4">
+            {previewUrl && (
+              <Link
+                href={previewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass p-4 rounded-full hover:bg-white/20 transition-all duration-300 group/link"
+              >
+                <EyeIcon className="h-6 w-6 text-white group-hover/link:text-purple-300" />
+              </Link>
+            )}
+            <Link
+              href={gitUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass p-4 rounded-full hover:bg-white/20 transition-all duration-300 group/link"
+            >
+              <CodeBracketIcon className="h-6 w-6 text-white group-hover/link:text-purple-300" />
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-6 flex flex-col flex-grow">
+        <h5 className="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors duration-300">
+          {title}
+        </h5>
+        <p className="text-gray-300 text-sm leading-relaxed flex-grow">
+          {description}
+        </p>
+
+        <div className="flex gap-3 mt-4">
+          {previewUrl && (
+            <Link
+              href={previewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-purple-400 hover:text-purple-300 font-medium transition-colors duration-300"
+            >
+              Live Demo →
+            </Link>
+          )}
           <Link
             href={gitUrl}
-            className="h-14 w-14 border-2 relative rounded-full border-[#ADB7BE] hover:border-white group/link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-400 hover:text-white font-medium transition-colors duration-300"
           >
-            <CodeBracketIcon className="h-10 w-10 text-[#ADB7BE] group-hover/link:text-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+            View Code →
           </Link>
         </div>
       </div>
-      <div className="bg-[#181818] rounded-b-xl py-6 px-4 text-white flex flex-col">
-        <h5 className="font-lg font-semibold mb-2">{title}</h5>
-        <p className="text-[#ADB7BE] text-sm md:text-base h-20 overflow-hidden">
-          {description}
-        </p>
-      </div>
-    </div>
+    </motion.div>
   );
 };
 
