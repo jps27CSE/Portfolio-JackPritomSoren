@@ -49,11 +49,14 @@ const Navbar = () => {
   }, []);
 
   const scrollToSection = (path) => {
-    const element = document.querySelector(path);
+    const element = document.getElementById(path.substring(1)); // Remove # from path
     if (element) {
-      const offsetTop = element.offsetTop - 80; // Account for navbar height
+      const headerOffset = 80; // Account for navbar height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
       window.scrollTo({
-        top: offsetTop,
+        top: offsetPosition,
         behavior: "smooth",
       });
     }
