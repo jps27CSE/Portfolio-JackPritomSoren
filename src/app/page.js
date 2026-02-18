@@ -5,10 +5,12 @@ import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import MediumBlogsSection from "@/components/MediumBlogsSection";
 import Navbar from "@/components/Navbar";
+import NewsletterSection from "@/components/NewsletterSection";
 import OfficeMemories from "@/components/PhotoAlbum";
 import ProjectsSection from "@/components/ProjectsSection";
-import ResearchPaperOverview from "@/components/ResearchPaperSection";
+import CoursesSection from "@/components/CoursesSection";
 import YouTubeVideosSection from "@/components/YouTubeVideosSection";
+import ResearchPaperOverview from "@/components/ResearchPaperSection";
 import Image from "next/image";
 
 export default function Home() {
@@ -30,6 +32,8 @@ export default function Home() {
         <MediumBlogsSection />
         <YouTubeVideosSection />
         <ResearchPaperOverview />
+        <NewsletterSection />
+        <CoursesSection />
         <OfficeMemories />
       </div>
       <EmailSection />
