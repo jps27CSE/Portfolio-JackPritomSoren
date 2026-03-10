@@ -91,7 +91,7 @@ export default function NewsletterSection() {
                       </div>
                       <div className="text-left">
                         <div className="text-3xl font-bold text-white bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                          500+
+                          1000+
                         </div>
                         <div className="text-sm text-gray-300 font-medium">Active Subscribers</div>
                         <div className="w-16 h-1 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mt-2"></div>
