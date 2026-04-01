@@ -59,6 +59,16 @@ const projectsData = [
   },
   {
     id: 6,
+    title: "Rx-Mart - Pharmacy Management System",
+    description:
+      "Full-stack e-commerce pharmacy platform using Angular, Express.js, and NeonDB (PostgreSQL), featuring customer/admin interfaces, inventory management, cart, orders, and analytics.",
+    image: "/images/projects/project14.png",
+    tag: ["All", "Web"],
+    gitUrl: "https://github.com/jps27CSE/Social_App_MERN",
+    previewUrl: "https://rx-mart.vercel.app",
+  },
+  {
+    id: 7,
     title: "Social App MERN",
     description:
       "MERN-based Social App: User-friendly platform for account creation, profile customization, post interaction, and admin controls.",
@@ -69,16 +79,6 @@ const projectsData = [
       "https://drive.google.com/file/d/1MI0auvwdQjL745ziqD8uaB-y1p_29CvS/view?usp=drive_link",
   },
   {
-    id: 7,
-    title: "NoteApp MERN",
-    description:
-      "Users effortlessly craft profiles, post notes, edit and delete, while updating personal information seamlessly on-demand.",
-    image: "/images/projects/project2.png",
-    tag: ["All", "Web"],
-    gitUrl: "https://github.com/jps27CSE/NoteHut_MERN",
-    previewUrl: "",
-  },
-  {
     id: 8,
     title: "JobBidPro",
     description:
@@ -87,36 +87,6 @@ const projectsData = [
     tag: ["All", "Web"],
     gitUrl: "https://github.com/jps27CSE/Job_Bid_Pro_Client",
     previewUrl: "https://jobbidpro.web.app/",
-  },
-  {
-    id: 9,
-    title: "Project Management App",
-    description:
-      "Project Management App streamlines collaboration: account creation, task addition, assignment, team tracking, and efficient communication.",
-    image: "/images/projects/project4.png",
-    tag: ["All", "Web"],
-    gitUrl: "https://github.com/jps27CSE/Project-Management_React_Firebase",
-    previewUrl: "https://project-management-react-23.netlify.app/",
-  },
-  {
-    id: 10,
-    title: "Github Finder",
-    description:
-      "GitHub Finder simplifies GitHub profile discovery, follower exploration, public repository viewing, and user location checking seamlessly.",
-    image: "/images/projects/project5.png",
-    tag: ["All", "Web"],
-    gitUrl: "https://github.com/jps27CSE/Github_Finder_React",
-    previewUrl: "https://react-github-profile-finder.netlify.app/",
-  },
-  {
-    id: 11,
-    title: "Ecommerce App",
-    description:
-      "E-commerce Store integrates Strapi admin for effortless management and ensures secure payments through Stripe.",
-    image: "/images/projects/project6.png",
-    tag: ["All", "Web"],
-    gitUrl: "https://github.com/jps27CSE/Ecommerce_React_Strapi_Stripe",
-    previewUrl: "",
   },
   {
     id: 12,
@@ -147,7 +117,7 @@ const ProjectsSection = () => {
   const isInView = useInView(ref, { once: true });
 
   const filteredProjects = projectsData.filter((project) =>
-    project.tag.includes(tag)
+    project.tag.includes(tag),
   );
 
   const cardVariants = {
