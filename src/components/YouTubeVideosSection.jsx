@@ -148,7 +148,7 @@ const YouTubeVideosSection = async () => {
         <div className="youtube-carousel-track">
           {carouselVideos.map((video, index) => (
             <a
-              key={`${video.id}-${index}`}
+              key={`${video.id}-carousel-${index}`}
               href={video.url}
               target="_blank"
               rel="noopener noreferrer"
