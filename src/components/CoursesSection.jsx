@@ -5,7 +5,8 @@ export default function CoursesSection() {
     {
       id: 1,
       title: "System Design Mastery Course in Bangla",
-      description: "Learn to design scalable and efficient systems. Master fundamental concepts of system architecture and solve real-world design problems.",
+      description:
+        "Learn to design scalable and efficient systems. Master fundamental concepts of system architecture and solve real-world design problems.",
       thumbnail: "/images/courses/systemdesign.jpg",
       duration: "8 weeks",
       level: "All Levels",
@@ -13,12 +14,13 @@ export default function CoursesSection() {
       rating: 4.9,
       price: "Free",
       category: "System Design",
-      link: "https://www.youtube.com/playlist?list=PLiGGopVZ-5D0lSZmDPBSlg9bT4kncg9aX"
+      link: "https://www.youtube.com/playlist?list=PLiGGopVZ-5D0lSZmDPBSlg9bT4kncg9aX",
     },
     {
       id: 2,
       title: "JavaScript Deep Concepts Mastery Course (Bangla)",
-      description: "Understand how JavaScript works behind the scenes. Master internals and think like an engineer with practical examples.",
+      description:
+        "Understand how JavaScript works behind the scenes. Master internals and think like an engineer with practical examples.",
       thumbnail: "/images/courses/javascript.jpg",
       duration: "6 weeks",
       level: "Advanced",
@@ -26,12 +28,13 @@ export default function CoursesSection() {
       rating: 4.8,
       price: "Free",
       category: "JavaScript",
-      link: "https://www.youtube.com/playlist?list=PLiGGopVZ-5D0TGaLomf01a7NdUo6hQMzf"
+      link: "https://www.youtube.com/playlist?list=PLiGGopVZ-5D0TGaLomf01a7NdUo6hQMzf",
     },
     {
       id: 3,
       title: "Web Security Essentials in Bangla",
-      description: "Learn web authentication, cookies, sessions, JWTs, and essential security concepts explained in Bangla. Master the fundamentals of web security and protect your applications.",
+      description:
+        "Learn web authentication, cookies, sessions, JWTs, and essential security concepts explained in Bangla. Master the fundamentals of web security and protect your applications.",
       thumbnail: "/images/courses/websecurity.jpg",
       duration: "4 weeks",
       level: "Intermediate",
@@ -39,8 +42,36 @@ export default function CoursesSection() {
       rating: 4.7,
       price: "Free",
       category: "Security",
-      link: "https://www.youtube.com/playlist?list=PLiGGopVZ-5D2SawszQ8kzJAUBCVnCNtjn"
-    }
+      link: "https://www.youtube.com/playlist?list=PLiGGopVZ-5D2SawszQ8kzJAUBCVnCNtjn",
+    },
+    {
+      id: 4,
+      title: "AI Engineering for Software Engineers (Bangla)",
+      description:
+        "Build modern AI-powered applications with LLMs, RAG systems, and AI agents. This practical series helps software engineers transition from traditional development to real-world AI engineering in Bangla.",
+      thumbnail: "/images/courses/ai.png",
+      duration: "6 weeks",
+      level: "Beginner to Advanced",
+      students: "1.1K",
+      rating: 4.9,
+      price: "Free",
+      category: "AI Engineering",
+      link: "https://www.youtube.com/playlist?list=PLiGGopVZ-5D1V3EDv2ciYLq5cw2AkU-XP",
+    },
+    {
+      id: 5,
+      title: "Docker for Developers: Complete Beginner to Pro (Bangla)",
+      description:
+        "Learn Docker from zero to pro with hands-on lessons on containers, images, Docker CLI, and real development workflows. Build, run, and manage applications confidently in modern software engineering.",
+      thumbnail: "/images/courses/docker.png",
+      duration: "5 weeks",
+      level: "Beginner to Intermediate",
+      students: "1.3K",
+      rating: 4.8,
+      price: "Free",
+      category: "DevOps",
+      link: "https://www.youtube.com/playlist?list=PLiGGopVZ-5D3NSyVK8xrHLQwfPe6oSL3Q",
+    },
   ];
 
   return (
@@ -48,7 +79,7 @@ export default function CoursesSection() {
       {/* Animated background */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 animate-pulse"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.15),transparent_50%)]"></div>
-      
+
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
@@ -56,8 +87,9 @@ export default function CoursesSection() {
             Courses
           </h2>
           <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
-            Explore courses on system design, programming deep dives, frameworks, and real projects. 
-            Learn practical skills and build your expertise in modern software development.
+            Explore courses on system design, programming deep dives,
+            frameworks, and real projects. Learn practical skills and build your
+            expertise in modern software development.
           </p>
         </div>
 
@@ -78,7 +110,7 @@ export default function CoursesSection() {
                   height={250}
                   className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
+                <div className="absolute bottom-4 left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
                   {course.category}
                 </div>
               </div>
@@ -108,14 +140,14 @@ export default function CoursesSection() {
                 {/* Stats */}
                 <div className="flex items-center justify-between pt-4 border-t border-white/10">
                   <div className="flex items-center gap-4 text-sm text-gray-400">
-                    <div className="flex items-center gap-2">
-                    </div>
+                    <div className="flex items-center gap-2"></div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-white">{course.price}</div>
+                    <div className="text-lg font-bold text-white">
+                      {course.price}
+                    </div>
                   </div>
                 </div>
-
               </div>
 
               {/* Hover Overlay */}
@@ -123,8 +155,6 @@ export default function CoursesSection() {
             </div>
           ))}
         </div>
-
-
       </div>
 
       {/* Floating elements */}
