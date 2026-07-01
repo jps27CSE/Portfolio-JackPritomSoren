@@ -2,6 +2,8 @@ import React from "react";
 
 const PLAYLIST_ID = "PLiGGopVZ-5D3M-sZgSgpAmaJdNKctKnlt";
 const PLAYLIST_URL = `https://www.youtube.com/playlist?list=${PLAYLIST_ID}`;
+const YOUTUBE_FEED_URL = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
+const VIDEO_REVALIDATE_SECONDS = 60 * 60 * 24 * 2;
 
 const fallbackVideos = [
   {
@@ -75,46 +77,50 @@ const fallbackVideos = [
   },
 ];
 
-const decodeValue = (value) =>
+const decodeXmlValue = (value = "") =>
   value
-    .replace(/\\u0026/g, "&")
-    .replace(/\\\\/g, "\\")
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/<[^>]+>/g, "")
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
+    .replace(/&#39;/g, "'")
+    .trim();
 
-const parsePlaylist = (html) => {
-  const matches = [
-    ...html.matchAll(
-      /"videoId":"([^"]+)".{0,300}?"title":\{"runs":\[\{"text":"([^"]+)"/g,
-    ),
-  ];
-  const seen = new Set();
+const parseFeedVideos = (xml) => {
+  const entries = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
 
-  return matches
-    .map(([, id, title]) => ({
-      id,
-      title: decodeValue(title),
-      thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
-      url: `https://www.youtube.com/watch?v=${id}&list=${PLAYLIST_ID}`,
-    }))
-    .filter((video) => {
-      if (!video.id || !video.title || seen.has(video.id)) {
-        return false;
+  return entries
+    .map(([, entry]) => {
+      const idMatch = entry.match(/<yt:videoId>([\s\S]*?)<\/yt:videoId>/);
+      const titleMatch = entry.match(/<title>([\s\S]*?)<\/title>/);
+      const mediaTitleMatch = entry.match(/<media:title>([\s\S]*?)<\/media:title>/);
+      const thumbnailMatch = entry.match(/<media:thumbnail[^>]*url="([^"]+)"/);
+
+      const id = decodeXmlValue(idMatch?.[1]);
+      const title = decodeXmlValue(titleMatch?.[1] || mediaTitleMatch?.[1]);
+      const thumbnail = decodeXmlValue(thumbnailMatch?.[1]);
+
+      if (!id || !title) {
+        return null;
       }
 
-      seen.add(video.id);
-      return true;
+      return {
+        id,
+        title,
+        thumbnail: thumbnail || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+        url: `https://www.youtube.com/watch?v=${id}&list=${PLAYLIST_ID}`,
+      };
     })
+    .filter(Boolean)
     .slice(0, 10);
 };
 
 const getPlaylistVideos = async () => {
   try {
-    const response = await fetch(PLAYLIST_URL, {
-      next: { revalidate: 21600 },
+    const response = await fetch(YOUTUBE_FEED_URL, {
+      next: { revalidate: VIDEO_REVALIDATE_SECONDS },
       headers: {
         "Accept-Language": "en-US,en;q=0.9",
       },
@@ -124,8 +130,8 @@ const getPlaylistVideos = async () => {
       throw new Error(`YouTube playlist request failed: ${response.status}`);
     }
 
-    const html = await response.text();
-    const videos = parsePlaylist(html);
+    const xml = await response.text();
+    const videos = parseFeedVideos(xml);
 
     return videos.length ? videos : fallbackVideos;
   } catch (error) {
