@@ -30,7 +30,7 @@ const decodeXmlValue = (value = '') =>
 async function getPlaylistVideos() {
   try {
     const res = await fetch(YOUTUBE_FEED_URL, {
-      next: { revalidate: 172800 },
+      next: { revalidate: 21600 },
       headers: { 'Accept-Language': 'en-US,en;q=0.9' },
     });
     if (!res.ok) throw new Error(`YouTube feed failed: ${res.status}`);
