@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 
 const ProjectTag = ({ name, onClick, isSelected }) => {
@@ -7,13 +6,20 @@ const ProjectTag = ({ name, onClick, isSelected }) => {
       onClick={() => onClick(name)}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className={`px-6 py-3 rounded-full text-lg font-semibold cursor-pointer transition-all duration-300 ${
+      className={`relative px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
         isSelected
-          ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg border-2 border-purple-400"
-          : "glass text-gray-300 hover:text-white border-2 border-gray-600 hover:border-purple-400"
+          ? "text-white shadow-lg shadow-violet-500/20"
+          : "glass text-gray-400 hover:text-white border border-white/5 hover:border-violet-500/30"
       }`}
     >
-      {name}
+      {isSelected && (
+        <motion.div
+          layoutId="activeTag"
+          className="absolute inset-0 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-xl border border-violet-500/30"
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        />
+      )}
+      <span className="relative z-10">{name}</span>
     </motion.button>
   );
 };

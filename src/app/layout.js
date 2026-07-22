@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
+import ClientLayout from './ClientLayout'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -10,28 +11,15 @@ export const metadata = {
   authors: [{ name: 'Jack Pritom Soren' }],
   creator: 'Jack Pritom Soren',
   publisher: 'Jack Pritom Soren',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  formatDetection: { email: false, address: false, telephone: false },
   metadataBase: new URL('https://jackpritomsoren.vercel.app'),
-  alternates: {
-    canonical: '/',
-  },
+  alternates: { canonical: '/' },
   openGraph: {
     title: 'Jack Pritom Soren - Full Stack Software Engineer',
     description: 'Portfolio of Jack Pritom Soren, a passionate Full-Stack Engineer specializing in React, Next.js, MERN Stack, Spring Boot, and Supabase.',
     url: 'https://jackpritomsoren.vercel.app',
     siteName: 'Jack Pritom Soren Portfolio',
-    images: [
-      {
-        url: '/images/pp.png',
-        width: 400,
-        height: 400,
-        alt: 'Jack Pritom Soren - Software Engineer',
-      },
-    ],
+    images: [{ url: '/images/pp.png', width: 400, height: 400, alt: 'Jack Pritom Soren - Software Engineer' }],
     locale: 'en_US',
     type: 'website',
   },
@@ -42,22 +30,8 @@ export const metadata = {
     images: ['/images/pp.png'],
     creator: '@jps27',
   },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  verification: {
-    google: 'your-google-site-verification-code', // Replace with actual verification code
-  },
+  robots: { index: true, follow: true, nocache: true, googleBot: { index: true, follow: true, noimageindex: false, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
+  verification: { google: 'your-google-site-verification-code' },
 }
 
 export default function RootLayout({ children }) {
@@ -87,7 +61,9 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ClientLayout>{children}</ClientLayout>
+      </body>
     </html>
   )
 }

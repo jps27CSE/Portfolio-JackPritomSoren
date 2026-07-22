@@ -2,51 +2,63 @@
 import { motion } from "framer-motion";
 
 const Footer = () => {
-  return (
-    <footer className="glass backdrop-blur-xl border-t border-white/10 text-white py-8 px-4 relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-pink-500/5 rounded-full blur-3xl"></div>
-      </div>
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-      <div className="container mx-auto relative z-10">
+  return (
+    <footer className="border-t border-white/5 text-white py-8 px-4 relative overflow-hidden">
+      <div className="container mx-auto max-w-5xl relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <motion.div
+          <motion.span
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+            transition={{ duration: 0.5 }}
+            className="text-2xl font-bold gradient-text"
           >
             JPS
-          </motion.div>
+          </motion.span>
 
-          <motion.div
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-gray-500 text-sm"
+          >
+            © {new Date().getFullYear()} Jack Pritom Soren. All rights reserved.
+          </motion.p>
+
+          <motion.button
+            onClick={scrollToTop}
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-center md:text-right"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ y: -4, scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="glass p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group"
+            aria-label="Back to top"
           >
-            <p className="text-slate-700">All right reserved.</p>
-          </motion.div>
+            <svg className="w-5 h-5 text-gray-400 group-hover:text-violet-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+          </motion.button>
         </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-6 pt-6 border-t border-white/10"
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center mt-8 pt-6 border-t border-white/5"
         >
-          <p className="text-gray-500 text-xs">
-            Crafting digital experiences, one pixel at a time.
-          </p>
+          <p className="text-gray-600 text-xs">Crafted with care using Next.js & Framer Motion</p>
         </motion.div>
       </div>
     </footer>
   );
 };
-  
-  export default Footer;
+
+export default Footer;

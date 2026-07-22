@@ -1,122 +1,128 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
-import React from "react";
-import GithubIcon from "../../public/github-icon.svg";
-import LinkedinIcon from "../../public/linkedin-icon.svg";
-import ThreadsIcon from "../../public/threads-app-icon.svg";
-import YoutubeIcon from "../../public/youtube.svg";
-import MediumIcon from "../../public/medium.svg";
-import DevtoIcon from "../../public/dev-to.svg";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useInViewOnce } from "@/lib/utils";
+
+const socialLinks = [
+  { href: "https://github.com/jps27cse", icon: "/github-icon.svg", alt: "GitHub" },
+  { href: "https://www.linkedin.com/in/jps27cse/", icon: "/linkedin-icon.svg", alt: "LinkedIn" },
+  { href: "https://www.threads.net/@jps.27", icon: "/threads-app-icon.svg", alt: "Threads" },
+  { href: "https://www.youtube.com/@jps27", icon: "/youtube.svg", alt: "YouTube" },
+  { href: "https://medium.com/@jackpritomsoren", icon: "/medium.svg", alt: "Medium" },
+  { href: "https://dev.to/jps27cse", icon: "/dev-to.svg", alt: "Dev.to" },
+];
 
 const EmailSection = () => {
-  return (
-    <section id="contact" className="py-20 px-0 relative overflow-hidden bg-[#121212]">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-500/20 rounded-full filter blur-xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-pink-500/20 rounded-full filter blur-xl animate-pulse delay-1000"></div>
-      </div>
+  const [sectionRef, inView] = useInViewOnce();
+  const [status, setStatus] = useState('idle');
+  const formRef = useRef(null);
 
-      <div className="w-full max-w-none px-4 lg:px-12 relative z-10">
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('sending');
+    const formData = new FormData(e.target);
+    try {
+      const res = await fetch('https://formspree.io/f/xnqkewaz', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' },
+      });
+      if (res.ok) {
+        setStatus('sent');
+        formRef.current?.reset();
+        setTimeout(() => setStatus('idle'), 4000);
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  return (
+    <section id="contact" ref={sectionRef} className="py-20 px-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-cyan-600/5 via-transparent to-violet-600/5 pointer-events-none" />
+      <div className="container mx-auto max-w-5xl relative z-10">
         <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center text-5xl font-bold text-white mb-16 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+          className="section-heading"
         >
           Get In Touch
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-8">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="glass p-8 rounded-2xl backdrop-blur-xl"
+            initial={{ opacity: 0, x: -30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="glass-strong rounded-2xl p-8"
           >
-            <h3 className="text-2xl font-bold text-white mb-6">Let's Connect</h3>
-            <p className="text-[#ADB7BE] mb-4 max-w-md">
-              I'm currently looking for new opportunities, my inbox is always open.
-              Whether you have a question or just want to say hi, I'll try my best
-              to get back to you!
+            <h3 className="text-2xl font-bold text-white mb-4">Let&apos;s Connect</h3>
+            <p className="text-gray-400 mb-6 leading-relaxed">
+              Have a project, idea, or just want to chat? Feel free to reach out — I&apos;d love to hear from you.
             </p>
 
-            <div className="flex flex-wrap gap-4">
-              {[
-                { href: "https://github.com/jps27cse", icon: GithubIcon, alt: "GitHub" },
-                { href: "https://www.linkedin.com/in/jps27cse/", icon: LinkedinIcon, alt: "LinkedIn" },
-                { href: "https://www.threads.net/@jps.27", icon: ThreadsIcon, alt: "Threads" },
-                { href: "https://www.youtube.com/@jps27", icon: YoutubeIcon, alt: "YouTube" },
-                { href: "https://medium.com/@jackpritomsoren", icon: MediumIcon, alt: "Medium" },
-                { href: "https://dev.to/jps27cse", icon: DevtoIcon, alt: "Dev.to" },
-              ].map((social, index) => (
+            <div className="flex flex-wrap gap-3">
+              {socialLinks.map((social, i) => (
                 <motion.a
-                  key={index}
+                  key={social.alt}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.2 + i * 0.05, duration: 0.4 }}
+                  whileHover={{ scale: 1.15, y: -4 }}
                   whileTap={{ scale: 0.9 }}
-                  className="glass p-4 rounded-full hover:bg-white/20 transition-all duration-300 group"
+                  className="glass p-3.5 rounded-xl hover:bg-white/10 transition-all duration-300 group"
                 >
-                  <Image
-                    src={social.icon}
-                    alt={social.alt}
-                    className="w-6 h-6 group-hover:brightness-110 transition-all"
-                  />
+                  <Image src={social.icon} alt={social.alt} width={22} height={22} className="opacity-70 group-hover:opacity-100 transition-opacity" />
                 </motion.a>
               ))}
             </div>
+
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="glass p-8 rounded-2xl backdrop-blur-xl"
+            initial={{ opacity: 0, x: 30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form action="https://formspree.io/f/xnqkewaz" method="POST" className="space-y-6">
-              <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-white mb-2">
-                  Your Email
-                </label>
+            <form ref={formRef} onSubmit={handleSubmit} className="glass-strong rounded-2xl p-8 space-y-5">
+              <div className="group">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">Your Email</label>
                 <input
                   type="email"
                   name="_replyto"
                   id="email"
-                  className="glass w-full p-4 rounded-xl border border-gray-600 bg-transparent placeholder-gray-400 text-white focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all duration-300"
-                  placeholder="your@email.com"
                   required
+                  className="w-full glass rounded-xl px-4 py-3.5 text-white placeholder-gray-500 border border-white/10 focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300 outline-none"
+                  placeholder="your@email.com"
                 />
               </div>
 
-              <div>
-                <label htmlFor="subject" className="block text-sm font-semibold text-white mb-2">
-                  Subject
-                </label>
+              <div className="group">
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">Subject</label>
                 <input
                   type="text"
                   name="subject"
                   id="subject"
-                  className="glass w-full p-4 rounded-xl border border-gray-600 bg-transparent placeholder-gray-400 text-white focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all duration-300"
+                  className="w-full glass rounded-xl px-4 py-3.5 text-white placeholder-gray-500 border border-white/10 focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300 outline-none"
                   placeholder="Project Collaboration"
                 />
               </div>
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-white mb-2">
-                  Message
-                </label>
+              <div className="group">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">Message</label>
                 <textarea
                   id="message"
                   name="message"
-                  rows="5"
-                  className="glass w-full p-4 rounded-xl border border-gray-600 bg-transparent placeholder-gray-400 text-white focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all duration-300 resize-none"
+                  rows="4"
+                  required
+                  className="w-full glass rounded-xl px-4 py-3.5 text-white placeholder-gray-500 border border-white/10 focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300 outline-none resize-none"
                   placeholder="Tell me about your project..."
                 />
               </div>
@@ -125,9 +131,23 @@ const EmailSection = () => {
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full btn-primary py-4 text-lg font-semibold"
+                disabled={status === 'sending'}
+                className={`btn-primary w-full text-center flex items-center justify-center gap-2 ${
+                  status === 'sending' ? 'opacity-70' : ''
+                }`}
               >
-                Send Message
+                {status === 'idle' && (
+                  <>Send Message <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg></>
+                )}
+                {status === 'sending' && (
+                  <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> Sending...</>
+                )}
+                {status === 'sent' && (
+                  <><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/></svg> Sent! I'll get back to you soon</>
+                )}
+                {status === 'error' && (
+                  <>Something went wrong. Try again.</>
+                )}
               </motion.button>
             </form>
           </motion.div>

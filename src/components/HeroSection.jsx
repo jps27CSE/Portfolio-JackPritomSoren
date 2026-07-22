@@ -1,213 +1,185 @@
 "use client";
-
 import Image from "next/image";
 import { TypeAnimation } from "react-type-animation";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import GithubIcon from "../../public/github-icon.svg";
-import LinkedinIcon from "../../public/linkedin-icon.svg";
-import ThreadsIcon from "../../public/threads-app-icon.svg";
-import YoutubeIcon from "../../public/youtube.svg";
-import MediumIcon from "../../public/medium.svg";
-import DevtoIcon from "../../public/dev-to.svg";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import ParticleBackground from "./ParticleBackground";
 
-/* eslint-disable react/no-unescaped-entities */
+const socialLinks = [
+  { href: "https://github.com/jps27cse", icon: "/github-icon.svg", alt: "GitHub" },
+  { href: "https://www.linkedin.com/in/jps27cse/", icon: "/linkedin-icon.svg", alt: "LinkedIn" },
+  { href: "https://www.threads.net/@jps.27", icon: "/threads-app-icon.svg", alt: "Threads" },
+  { href: "https://www.youtube.com/@jps27", icon: "/youtube.svg", alt: "YouTube" },
+  { href: "https://medium.com/@jackpritomsoren", icon: "/medium.svg", alt: "Medium" },
+  { href: "https://dev.to/jps27cse", icon: "/dev-to.svg", alt: "Dev.to" },
+];
+
+const floatingTechs = [
+  { icon: "/nextjs-icon.svg", label: "Next.js", x: "85%", y: "12%", delay: 0 },
+  { icon: "/angular-icon.svg", label: "Angular", x: "15%", y: "10%", delay: 0.5 },
+  { icon: "/springboot-icon.svg", label: "Spring Boot", x: "10%", y: "72%", delay: 1 },
+  { icon: "/ai-icon.svg", label: "AI", x: "88%", y: "68%", delay: 1.5 },
+  { icon: "/nodejs-icon.svg", label: "Node.js", x: "5%", y: "42%", delay: 2 },
+];
+
 const HeroSection = () => {
-  const resumeLink =
-    "https://drive.usercontent.google.com/u/0/uc?id=1bfN0q31juRxuzT7hsPZDsbgtRO-DWlUF&export=download";
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  const handleDownload = () => {
-    window.open(resumeLink, "_blank");
-  };
+  const resumeLink = "https://drive.usercontent.google.com/u/0/uc?id=1bfN0q31juRxuzT7hsPZDsbgtRO-DWlUF&export=download";
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-0 py-16 relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse delay-2000"></div>
-      </div>
+    <section
+      ref={sectionRef}
+      id="hero"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      <ParticleBackground count={80} color="rgba(168, 85, 247, 0.3)" />
 
-      <div className="w-full max-w-none px-4 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+      <motion.div className="absolute inset-0" style={{ y, opacity }}>
+        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[120px] pulse-glow" />
+        <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-fuchsia-600/10 rounded-full blur-[120px] pulse-glow" style={{ animationDelay: "-1.5s" }} />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-[150px] pulse-glow" style={{ animationDelay: "-3s" }} />
+      </motion.div>
+
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-12 grid lg:grid-cols-2 gap-12 items-center">
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="col-span-7 place-self-center text-center lg:text-left"
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="text-center lg:text-left"
         >
-          <div className="glass p-8 mb-8 backdrop-blur-xl">
-            <h1 className="text-white max-w-2xl mb-6 lg:text-7xl text-4xl font-extrabold leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-                Hello, I'm{" "}
-              </span>
-              <br />
-              <TypeAnimation
-                sequence={[
-                  "Jack Pritom Soren",
-                  1000,
-                  "Software Engineer",
-                  1000,
-                  "Full-Stack Engineer",
-                  1000,
-                  "Problem Solver",
-                  1000,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-                className="text-white"
-              />
-            </h1>
-            <p className="text-[#ADB7BE] mb-8 text-lg lg:text-xl leading-relaxed">
-              Passionate Full-Stack Engineer with strong frontend expertise in
-              JavaScript, React, Next.js, and the MERN Stack, along with
-              practical experience in backend technologies like Spring Boot,
-              Supabase, and Prisma. Dedicated to building clean, efficient, and
-              scalable applications through collaboration and innovation.
-            </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Link href="/#contact" passHref>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary px-8 py-4 text-lg font-semibold"
-                >
-                  Hire Me
-                </motion.button>
-              </Link>
+
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+            <span className="text-white/90">Hi, I&apos;m </span>
+            <span className="gradient-text">Jack Pritom Soren</span>
+            <br />
+            <TypeAnimation
+              sequence={[
+                "Software Engineer",
+                2000,
+                "Full-Stack Engineer",
+                2000,
+                "Problem Solver",
+                2000,
+                "Content Creator",
+                2000,
+              ]}
+              wrapper="span"
+              speed={50}
+              repeat={Infinity}
+              className="gradient-text-duo text-4xl sm:text-5xl lg:text-6xl"
+            />
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="text-gray-400 text-lg lg:text-xl leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8"
+          >
+            Full-Stack Software Engineer specializing in React.js, Next.js, Angular, TypeScript, Node.js, NestJS, Spring Boot, and Docker. Passionate about building scalable, high-performance, and AI-powered web applications.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
+          >
+            <a href="#contact">
               <motion.button
-                onClick={handleDownload}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="glass px-8 py-4 text-white font-semibold hover:bg-white/10 transition-all duration-300"
+                className="btn-primary px-8 py-4 text-lg"
               >
-                Download CV
+                Hire Me
               </motion.button>
-            </div>
+            </a>
+            <motion.a
+              href={resumeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-secondary px-8 py-4 text-lg inline-flex items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Download CV
+            </motion.a>
+          </motion.div>
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-              {[
-                {
-                  href: "https://github.com/jps27cse",
-                  icon: GithubIcon,
-                  alt: "GitHub",
-                },
-                {
-                  href: "https://www.linkedin.com/in/jps27cse/",
-                  icon: LinkedinIcon,
-                  alt: "LinkedIn",
-                },
-                {
-                  href: "https://www.threads.net/@jps.27",
-                  icon: ThreadsIcon,
-                  alt: "Threads",
-                },
-                {
-                  href: "https://www.youtube.com/@jps27",
-                  icon: YoutubeIcon,
-                  alt: "YouTube",
-                },
-                {
-                  href: "https://medium.com/@jackpritomsoren",
-                  icon: MediumIcon,
-                  alt: "Medium",
-                },
-                {
-                  href: "https://dev.to/jps27cse",
-                  icon: DevtoIcon,
-                  alt: "Dev.to",
-                },
-              ].map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="glass p-3 rounded-full hover:bg-white/10 transition-all duration-300 group"
-                >
-                  <Image
-                    src={social.icon}
-                    alt={social.alt}
-                    className="w-6 h-6 group-hover:brightness-110 transition-all"
-                  />
-                </motion.a>
-              ))}
-            </div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+            className="flex flex-wrap gap-3 justify-center lg:justify-start"
+          >
+            {socialLinks.map((social) => (
+              <motion.a
+                key={social.alt}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.2, y: -4 }}
+                whileTap={{ scale: 0.9 }}
+                className="glass p-3 rounded-xl hover:bg-white/5 transition-all duration-300 group"
+              >
+                <Image src={social.icon} alt={social.alt} width={22} height={22} className="opacity-70 group-hover:opacity-100 transition-opacity" />
+              </motion.a>
+            ))}
+          </motion.div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="col-span-5 place-self-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="relative flex justify-center"
         >
-          <div className="relative">
-            <motion.div
-              animate={{
-                boxShadow: [
-                  "0 0 20px rgba(168, 85, 247, 0.4)",
-                  "0 0 40px rgba(168, 85, 247, 0.8)",
-                  "0 0 20px rgba(168, 85, 247, 0.4)",
-                ],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="glass lg:w-[400px] lg:h-[400px] w-[280px] h-[280px] rounded-full relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full"></div>
-              <Image
-                src="/images/pp.png"
-                alt="Jack Pritom Soren - Software Engineer"
-                className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 object-cover"
-                width={350}
-                height={350}
-              />
-            </motion.div>
+          <motion.div
+            animate={{ boxShadow: ["0 0 30px rgba(168,85,247,0.3)", "0 0 60px rgba(168,85,247,0.6)", "0 0 30px rgba(168,85,247,0.3)"] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="relative w-[300px] h-[300px] lg:w-[400px] lg:h-[400px] rounded-full overflow-hidden glass-strong"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 via-fuchsia-500/20 to-cyan-500/20 rounded-full" />
+            <Image
+              src="/images/pp.png"
+              alt="Jack Pritom Soren"
+              className="object-cover object-center"
+              fill
+              priority
+              sizes="(max-width: 768px) 300px, 400px"
+            />
+          </motion.div>
 
-            {/* Floating tech icons */}
+          {floatingTechs.map((tech) => (
             <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-4 -right-4 glass p-3 rounded-full"
+              key={tech.label}
+              className="absolute glass p-3 rounded-xl hidden lg:flex items-center gap-2 shadow-lg"
+              style={{ left: tech.x, top: tech.y }}
+              animate={{ y: [0, -12, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: tech.delay }}
             >
-              <span className="text-2xl">⚛️</span>
+              <Image src={tech.icon} alt={tech.label} width={20} height={20} className="opacity-90" />
+              <span className="text-xs font-medium text-white/80">{tech.label}</span>
             </motion.div>
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-              className="absolute -bottom-4 -left-4 glass p-3 rounded-full"
-            >
-              <span className="text-2xl">🚀</span>
-            </motion.div>
-          </div>
+          ))}
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1 h-3 bg-white/60 rounded-full mt-2"
-          />
+        <div className="w-5 h-8 border-2 border-white/20 rounded-full flex justify-center">
+          <div className="w-1 h-2.5 bg-violet-400 rounded-full mt-2 animate-bounce" />
         </div>
       </motion.div>
     </section>
