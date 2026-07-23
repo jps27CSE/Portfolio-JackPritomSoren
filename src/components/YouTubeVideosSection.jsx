@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PLAYLIST_ID = "PLiGGopVZ-5D3M-sZgSgpAmaJdNKctKnlt";
-const YOUTUBE_FEED_URL = `https://www.youtube.com/feeds/videos.xml?playlist_id=${PLAYLIST_ID}`;
+const PLAYLIST_URL = `https://www.youtube.com/playlist?list=${PLAYLIST_ID}`;
 
 const fallbackVideos = [
   { id: "GqX0lhBNHkU", title: "From Idea to Database Schema — Real System Design Explained in Bangla", thumbnail: "https://i4.ytimg.com/vi/GqX0lhBNHkU/hqdefault.jpg" },
@@ -16,35 +16,28 @@ const fallbackVideos = [
   { id: "_c_wDV_3ktI", title: "System Design in Bangla | Video Upload & Streaming API Design (Step-by-Step)", thumbnail: "https://i.ytimg.com/vi/_c_wDV_3ktI/hqdefault.jpg" },
 ];
 
-const decodeXmlValue = (value = '') =>
-  value
-    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .trim();
-
 async function getPlaylistVideos() {
   try {
-    const res = await fetch(YOUTUBE_FEED_URL, {
-      next: { revalidate: 21600 },
-      headers: { 'Accept-Language': 'en-US,en;q=0.9' },
+    const res = await fetch(PLAYLIST_URL, {
+      cache: 'no-store',
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Next.js)', 'Accept-Language': 'en-US,en;q=0.9' },
     });
-    if (!res.ok) throw new Error(`YouTube feed failed: ${res.status}`);
-    const xml = await res.text();
-    const entries = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)];
-    const videos = entries
-      .map(([, entry]) => {
-        const id = decodeXmlValue(entry.match(/<yt:videoId>([\s\S]*?)<\/yt:videoId>/)?.[1]);
-        const title = decodeXmlValue(entry.match(/<title>([\s\S]*?)<\/title>/)?.[1]);
-        if (!id || !title) return null;
-        return { id, title, thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg` };
-      })
-      .filter(Boolean)
-      .slice(0, 10);
+    if (!res.ok) throw new Error(`YouTube page failed: ${res.status}`);
+    const html = await res.text();
+    const match = html.match(/ytInitialData\s*=\s*(\{.*?\});/);
+    if (!match) throw new Error('ytInitialData not found');
+    const data = JSON.parse(match[1]);
+    const contents = data.contents.twoColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents[0].itemSectionRenderer.contents;
+    const videos = [];
+    for (const item of contents) {
+      const lvm = item.lockupViewModel;
+      if (!lvm || lvm.contentType !== 'LOCKUP_CONTENT_TYPE_VIDEO') continue;
+      const id = lvm.contentId;
+      const title = lvm.metadata?.lockupMetadataViewModel?.title?.content;
+      if (!id || !title) continue;
+      videos.push({ id, title, thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg` });
+      if (videos.length === 10) break;
+    }
     return videos.length ? videos : fallbackVideos;
   } catch {
     return fallbackVideos;
@@ -93,7 +86,7 @@ const YouTubeVideosSection = async () => {
         </div>
       </div>
       <div className="text-center mt-10">
-        <a href={`https://www.youtube.com/playlist?list=${PLAYLIST_ID}`} target="_blank" rel="noopener noreferrer" className="btn-secondary inline-flex items-center gap-2">
+        <a href={PLAYLIST_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary inline-flex items-center gap-2">
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 4-8 4z"/></svg>
           Watch More on YouTube
         </a>
