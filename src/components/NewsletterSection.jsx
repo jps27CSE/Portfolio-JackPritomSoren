@@ -76,7 +76,7 @@ export default function NewsletterSection() {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-xl font-bold gradient-text">1000+</div>
+                  <div className="text-xl font-bold gradient-text">1500+</div>
                   <div className="text-xs text-gray-400">Active Subscribers</div>
                 </div>
               </motion.div>
